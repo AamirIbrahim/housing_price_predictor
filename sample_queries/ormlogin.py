@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.pool import NullPool
 import os
 import load_dotenv
-from models import StudentsCopy
+from models import Students, StudentsCopy
 from sqlalchemy.orm import sessionmaker
 
 load_dotenv.load_dotenv()
@@ -18,8 +18,8 @@ session = Session()
 
 def login_method_rawSQL(user_input, user_input_password):
     
-    users = session.query(StudentsCopy.username, StudentsCopy.password) .\
-        filter(StudentsCopy.username == user_input, StudentsCopy.password == user_input_password)
+    users = session.query(Students.username, Students.password) .\
+        filter(Students.username == user_input, Students.password == user_input_password)
     user_login = pd.DataFrame(users, columns=['username', 'password'])
     
     print(user_login)
@@ -29,7 +29,7 @@ def login_method_rawSQL(user_input, user_input_password):
         print("Incorrect Credentials")
     session.close()
 
-user_input_user = "JAMESSMITH"
+user_input_user = "' OR 1=1; -- '"
 user_input_password = "123456"
 
 login_method_rawSQL(user_input_user, user_input_password)

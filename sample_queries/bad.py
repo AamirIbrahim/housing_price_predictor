@@ -13,7 +13,11 @@ engine = create_engine("mysql+pymysql://{0}:{1}@{2}:3306/incubator"
 
 def login_method_rawSQL(user_input, user_input_password):
     print("Connected to MySQL")
-    query = "SELECT username, password from students_copy WHERE username = '{0}' and password = '{1}';".format(user_input, user_input_password)
+    # Sanitize user input
+    user_input = user_input.replace("'", "")
+    user_input_password = user_input_password.replace("'", "")
+    
+    query = "SELECT username, password from students WHERE username = '{0}' and password = '{1}';".format(user_input, user_input_password)
     print(query)
     df = pd.read_sql(query, con=engine)
     print(df)
