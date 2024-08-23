@@ -17,16 +17,16 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Insertion of a new GPA record
-new_student = Students_GPA(student_id=100, GPA=3.5)
+new_student = Students_GPA(student_id=200, GPA=3.5)
 session.add(new_student)
 session.commit()
 
-# # Update the GPA of a student
-update_student = session.query(Students_GPA).filter(Students_GPA.student_id == 100)
+# Update the GPA of a student
+update_student = session.query(Students_GPA).filter_by(student_id = 200).first()
 update_student.GPA = 4.0
 session.commit()
 
 # # Delete the GPA record of a student
-delete_student = session.query(Students_GPA).filter(Students_GPA.student_id == 100)
+delete_student = session.query(Students_GPA).filter_by(student_id = 200).first()
 session.delete(delete_student)
 session.commit()
