@@ -10,10 +10,12 @@ python = "^3.12"
 sphinx = "^8.0.2"
 pytest = "^8.3.2"
 ruff = "^0.5.7"
+sqlalchemy = "^2.0.32"
 
 
 [tool.poetry.group.dev.dependencies]
 sphinx = "^8.0.2"
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]
