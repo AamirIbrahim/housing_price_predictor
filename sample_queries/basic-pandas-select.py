@@ -2,7 +2,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.pool import NullPool
 import os
-from dotenv import load_dotenv
+import load_dotenv
 
 load_dotenv.load_dotenv()
 
