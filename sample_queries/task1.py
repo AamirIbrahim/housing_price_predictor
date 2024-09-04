@@ -50,6 +50,12 @@ def students_table(first, last, user, passw, funct, input_id):
         session.delete(delete_extra)
         session.commit()
 
+    #Print set
+    students_all = session.query(Students.__table__.columns).\
+    filter(Students.student_id > 420)
+    students_all_df = pd.DataFrame(students_all, columns=[Students.__table__.columns.keys()])
+    print(students_all_df)
+
 def student_gpa_table(gpa, funct, input_id):
     if(funct == 'insert'):
         insert_gpa = Students_GPA(student_id = input_id, GPA = gpa)
@@ -65,6 +71,12 @@ def student_gpa_table(gpa, funct, input_id):
         delete_gpa = session.query(Students_GPA).filter_by(student_id = input_id).first()
         session.delete(delete_gpa)
         session.commit()
+    
+    #print set
+    students_all = session.query(Students_GPA.__table__.columns).\
+    filter(Students_GPA.student_id > 420)
+    students_all_df = pd.DataFrame(students_all, columns=[Students_GPA.__table__.columns.keys()])
+    print(students_all_df)
 
 def extra_table(extra, funct, input_id):
     if(funct == 'insert'):
@@ -81,26 +93,28 @@ def extra_table(extra, funct, input_id):
         delete_extra = session.query(ExtraCurricular).filter_by(student_id = input_id).first()
         session.delete(delete_extra)
         session.commit()
+    
+    #Print set
+    students_all = session.query(ExtraCurricular.__table__.columns).\
+    filter(ExtraCurricular.student_id > 420)
+    students_all_df = pd.DataFrame(students_all, columns=[ExtraCurricular.__table__.columns.keys()])
+    print(students_all_df)
 
 
 #IMPLEMENTATION OF FUNCTIONS
 
-# students_table('Larry', 'Ebanks', 'LarBand', 'quigely123', 'insert', 531)
-students_all = session.query(Students.__table__.columns).\
-    filter(Students.student_id > 420)
-students_all_df = pd.DataFrame(students_all, columns=[Students.__table__.columns.keys()])
-print(students_all_df)
+#students_table('Larry', 'Bandsman', 'LarBand', 'quigely123', 'delete', 551)
 
+#student_gpa_table(2.0, 'insert', 541)
 
-# student_gpa_table(3.8, 'insert', 531)
-students_all = session.query(Students_GPA.__table__.columns).\
-    filter(Students_GPA.student_id > 420)
-students_all_df = pd.DataFrame(students_all, columns=[Students_GPA.__table__.columns.keys()])
-print(students_all_df)
+#extra_table('Band Club','insert', 541)
 
+# -- sqlachemy task2 
+#   SELECT first_name, last_name, GPA FROM students
+# 	LEFT JOIN extracurricular 
+# 	ON students.student_id = extracurricular.student_id
+# 	JOIN students_gpa 
+# 	ON students.student_id = students_gpa.student_id
+# 	WHERE students_gpa.GPA < 3.0 
+# 	ORDER BY GPA ASC;
 
-# extra_table('Larry Club','insert', 531)
-students_all = session.query(ExtraCurricular.__table__.columns).\
-    filter(ExtraCurricular.student_id > 420)
-students_all_df = pd.DataFrame(students_all, columns=[ExtraCurricular.__table__.columns.keys()])
-print(students_all_df)
